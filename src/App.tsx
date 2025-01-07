@@ -1,44 +1,22 @@
 // Filename - App.js
 
-import React, { useState, useCallback } from 'react';
-const funccount = new Set();
+import React, { useState, useCallback } from "react";
+import Render from "./Test";
+
 const App = () => {
+  console.log("parent render");
+  const [count, setCount] = useState(1);
 
-
-  const [count, setCount] = useState(0)
-  const [number, setNumber] = useState(0)
-
-  const incrementCounter = () => {
-    setCount(count + 1)
-  }
-  const decrementCounter = () => {
-    setCount(count - 1)
-  }
-  
-   const incrementNumber = () => {
-    setNumber(number + 1)
-  }
-  
-funccount.add(incrementCounter);
-funccount.add(decrementCounter);
-funccount.add(incrementNumber);
-alert(funccount.size);
+  const handler = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
 
   return (
     <div>
-      Count: {count}
-      <button onClick={incrementCounter}>
-        Increase counter
-      </button>
-      <button onClick={decrementCounter}>
-         Decrease Counter
-      </button>
-      <button onClick={incrementNumber}>
-        increase number
-      </button>
+      <button onClick={() => setCount((prev) => prev + 1)}>{count}</button>
+      <Render handle={handler} />
     </div>
-  )
-}
-
+  );
+};
 
 export default App;
